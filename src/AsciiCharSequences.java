@@ -1,12 +1,12 @@
-import java.util.Arrays;
-import java.util.StringJoiner;
-
 public class AsciiCharSequences {
     public static void main(String[] args) {
         byte[] c = {65, 66, 67, 68, 69, 70, 71};
         AsciiCharSequence a = new AsciiCharSequence(c);
-        System.out.println(a.subSequence(1, 5).toString());
-        System.out.println(a.charAt(15));
+        System.out.println("=========--------");
+//        System.out.println(a.subSequence(1, 5).charAt(5));
+        System.out.println(a.subSequence(2, 5).toString());
+//        System.out.println(a.charAt(5));
+        System.out.println("=========--------");
     }
 
 public static class AsciiCharSequence implements CharSequence {
@@ -23,18 +23,16 @@ public static class AsciiCharSequence implements CharSequence {
 
     @Override
     public char charAt(int index) {
-        if (index < 0 || index >= this.b.length) {
-            throw new StringIndexOutOfBoundsException("index " + index +
-                    ", length " + this.b.length);
+        if ((index >= 0) && (index <= this.b.length - 1)) {
+            return (char) b[index];
         }
-        return (char) b[index];
+        return (char) 0;
     }
 
     @Override
     public CharSequence subSequence(int start, int end) {
-        if (end < 0 || end >= this.b.length) {
-            throw new StringIndexOutOfBoundsException("index " + end +
-                    ", length " + this.b.length);
+        if ((start < 0) || (end > this.b.length - 1)) {
+            return this;
         }
         byte[] a = new byte[end - start];
         int j = 0;
@@ -48,9 +46,8 @@ public static class AsciiCharSequence implements CharSequence {
 
     @Override
     public String toString() {
-
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i <= this.b.length - 1; i++) {
+        for (int i = 0; i < this.b.length; i++) {
             char ch = this.charAt(i);
             String str = String.valueOf(ch);
             sb.append(str);
