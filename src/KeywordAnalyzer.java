@@ -1,7 +1,16 @@
-public abstract class KeywordAnalyzer{
+public abstract class KeywordAnalyzer implements TextAnalyzer {
+
     protected abstract String[] getKeywords();
+    protected abstract Label getLabel();
 
-    protected abstract Label getLabel() ;
-
-    public abstract Label processText(String text);
+    public Label processText(String text) {
+        String[] words = getKeywords();
+        for (String w : words) {
+            boolean check = text.contains(w);
+            if (check) {
+                return getLabel();
+            }
+        }
+        return Label.OK;
+    };
 }

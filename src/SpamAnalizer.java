@@ -1,29 +1,16 @@
-public class SpamAnalizer extends KeywordAnalyzer implements TextAnalyzer{
+class SpamAnalyzer extends KeywordAnalyzer {
     private String[] keywords;
+    private Label label = Label.SPAM;
 
-    public SpamAnalizer(String[] keywords) {
+    public SpamAnalyzer(String[] keywords) {
         this.keywords = keywords;
     }
 
-    @Override
     protected String[] getKeywords() {
         return keywords;
     }
 
-    @Override
     protected Label getLabel() {
-        return Label.SPAM;
+        return label;
     }
-
-    @Override
-    public Label processText(String text) {
-        String[] words_negative = getKeywords();
-        for (String key_i : words_negative) {
-            boolean check = text.contains(key_i);
-            if (check) return getLabel();
-        }
-        return Label.OK;
-    }
-
-
 }

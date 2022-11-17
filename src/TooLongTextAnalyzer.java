@@ -1,4 +1,4 @@
-public class TooLongTextAnalyzer implements TextAnalyzer{
+public class TooLongTextAnalyzer implements TextAnalyzer {
     private int maxLength;
     private Label label;
 
@@ -8,15 +8,10 @@ public class TooLongTextAnalyzer implements TextAnalyzer{
 
     @Override
     public Label processText(String text) {
-        int len;
-        String [] l = text.split(" ");
-        if (l.length>this.maxLength){
-            return Label.TOO_LONG;
-        }
-        return Label.OK;
+        return text.length() > maxLength ? Label.TOO_LONG : Label.OK;
     }
 
-    public Label getLabel() {
+    protected Label getLabel() {
         return Label.TOO_LONG;
     }
 }

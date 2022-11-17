@@ -2,7 +2,7 @@
 public class TextAnalyzers {
     public static void main(String[] args) {
         String[] badWords = {"плохой", "отстой"};
-        SpamAnalizer spamA = new SpamAnalizer(badWords);
+        SpamAnalyzer spamA = new SpamAnalyzer(badWords);
         NegativeTextAnalyzer negativeTA = new NegativeTextAnalyzer();
         TooLongTextAnalyzer tooLongTA = new TooLongTextAnalyzer(17);
         TextAnalyzer[] analyzers = {spamA, negativeTA, tooLongTA};
@@ -10,13 +10,14 @@ public class TextAnalyzers {
         System.out.println(checkLabels(analyzers, "Плохой текст для теста, так как это :( ужас."));
         System.out.println(checkLabels(analyzers, "Плохой текст для теста, полный отстой."));
         System.out.println(checkLabels(analyzers, "И это все, что вы хотели написать в комментариях.Да ну, вообще..."));
-
     }
 
     public static Label checkLabels(TextAnalyzer[] analyzers, String text) {
         for (TextAnalyzer a : analyzers) {
-            if (a.getLabel() != Label.OK)
-                return a.getLabel();
+            Label label = a.processText(text);
+            if (label != Label.OK) {
+                return label;
+            }
         }
         return Label.OK;
     }
@@ -24,8 +25,6 @@ public class TextAnalyzers {
 
 interface TextAnalyzer {
     Label processText(String text);
-
-    Label getLabel();
 }
 
 enum Label {
