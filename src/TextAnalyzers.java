@@ -1,6 +1,8 @@
 
 public class TextAnalyzers {
     public static void main(String[] args) {
+        Object i = Integer.valueOf(42);
+        String s = (String)i;
         String[] badWords = {"плохой", "отстой"};
         SpamAnalyzer spamA = new SpamAnalyzer(badWords);
         NegativeTextAnalyzer negativeTA = new NegativeTextAnalyzer();
