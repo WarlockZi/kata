@@ -1,4 +1,4 @@
-public class SpamAnalizers extends KeywordAnalyzer implements TextAnalyzer {
+public class SpamAnalizers {
     public static void main(String[] args) {
         String[] badWords = {"плохой", "отстой"};
         SpamAnalizer spamA = new SpamAnalizer(badWords);

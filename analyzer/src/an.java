@@ -1,13 +1,13 @@
-public class an{
+public class an {
     public static void main(String[] args) {
         String[] badWords = {"плохой", "отстой"};
         SpamAnalyzer spamA = new SpamAnalyzer(badWords);
         NegativeTextAnalyzer negativeTA = new NegativeTextAnalyzer();
         TooLongTextAnalyzer tooLongTA = new TooLongTextAnalyzer(10);
         TextAnalyzer[] analyzers = {spamA, negativeTA, tooLongTA};
-        System.out.println(checkLabels(analyzers, "Хороший текст для теста."));
-        System.out.println(checkLabels(analyzers, "Плохой текст для теста, так как это :( ужас."));
-        System.out.println(checkLabels(analyzers, "Плохой текст для теста, полный отстой."));
+//        System.out.println(checkLabels(analyzers, "Хороший текст для теста."));
+//        System.out.println(checkLabels(analyzers, "Плохой текст для теста, так как это :( ужас."));
+//        System.out.println(checkLabels(analyzers, "Плохой текст для теста, полный отстой."));
         System.out.println(checkLabels(analyzers, "И это все, что вы :( хотели написать в комментариях.Да ну, вообще..."));
     }
 
@@ -25,6 +25,7 @@ public class an{
 interface TextAnalyzer {
     Label processText(String text);
 }
+
 enum Label {
     SPAM, NEGATIVE_TEXT, TOO_LONG, OK
 }
@@ -83,9 +84,10 @@ class TooLongTextAnalyzer implements TextAnalyzer {
 }
 
 
-abstract class KeywordAnalyzer implements TextAnalyzer{
+abstract class KeywordAnalyzer implements TextAnalyzer {
 
     protected abstract String[] getKeywords();
+
     protected abstract Label getLabel();
 
     public Label processText(String text) {
@@ -95,20 +97,5 @@ abstract class KeywordAnalyzer implements TextAnalyzer{
             if (check) return getLabel();
         }
         return Label.OK;
-    };
-}
-enum NEGATIVE_TEXT {
-    SMILES1(":("), SMILES2(":|"), SMILES3("=:"),
-    ;
-    private String title;
-
-    NEGATIVE_TEXT(String title) {
-        this.title = title;
-    }
-
-    public String getTitle() {
-        return title;
     }
 }
-
-
