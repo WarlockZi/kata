@@ -6,15 +6,15 @@ class getCallerClass {
     }
 
     private static void anotherMethod() {
-        if (getCallerClassAndMethodName() < 3) {
-
-        }
         System.out.println(getCallerClassAndMethodName());
     }
 
     public static String getCallerClassAndMethodName() {
-        Exception e = new Exception();
-        StackTraceElement st = e.getStackTrace();
+        StackTraceElement[] e = new Throwable().getStackTrace();
+        if (e.length > 2) {
+            return e[2].getClassName() + "#" + e[2].getMethodName();
+        }
+        return null;
     }
 }
 
